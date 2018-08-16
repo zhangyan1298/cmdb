@@ -33,6 +33,8 @@ git clone https://github.com/Tencent/bk-cmdb.git
 #nodejs >= 4.0.0（编译过程中需要可以连公网下载依赖包）
 yum -y install epel-release
 yum -y install golang nodejs
+###配置node源为淘宝源
+npm config set registry http://registry.npm.taobao.org/
 ###配置gopath
 mkdir -p /data/abc/src
 export GOPATH=/data/ab/src
