@@ -44,7 +44,8 @@ make
 /data/abc/src/configcenter/src/bin/build/oc-18.08.16
 ###
 #初始化配置文件
-python init.py --discovery 10.1.128.167:2181 --database cmdb --redis_ip 10.1.95.144  --redis_port 6379 --redis_pass my_redis --mongo_ip 10.1.19.148  --mongo_port 27017 --mongo_user cc --mongo_pass cc --blueking_cmdb_url http://0.0.0.0:8083 --listen_port 8083
+#--blueking_cmdb_url 这个参数很重要，因为打开浏览器的时候调用的javascript脚本会到这里做跳转，如果是客户端无法解析那么就会一直显示加载中。
+python init.py --discovery 10.1.128.167:2181 --database cmdb --redis_ip 10.1.95.144  --redis_port 6379 --redis_pass my_redis --mongo_ip 10.1.19.148  --mongo_port 27017 --mongo_user cc --mongo_pass cc --blueking_cmdb_url http://浏览器打开的IP或域名:8083 --listen_port 8083
 #启动服务
 ./start.sh
 ##bash ./init_db 初始化db失败
