@@ -13,4 +13,10 @@ wget http://bkopen-10032816.file.myqcloud.com/cmdb/cmdb.tar.gz
 bind 0.0.0.0
 requirepass password
 ###
+##配置mongodb
+##新建db与user
+use cmdb
+db.createUser({user: "cc",pwd: "cc",roles: [ { role: "readWrite", db: "cmdb" } ]})
+###
+###配置zooker###
 
