@@ -18,5 +18,9 @@ requirepass password
 use cmdb
 db.createUser({user: "cc",pwd: "cc",roles: [ { role: "readWrite", db: "cmdb" } ]})
 ###
-###配置zooker###
+###配置zooker####
+##
+###git clone https://github.com/Tencent/bk-cmdb.git 克隆代码
+git clone https://github.com/Tencent/bk-cmdb.git
+
 
