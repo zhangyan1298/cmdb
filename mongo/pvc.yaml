@@ -1,0 +1,17 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: mongoclaim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: slow-mongo
+  selector:
+    matchLabels:
+      nfs: "server"
+    matchExpressions:
+      - {key: nfs, operator: In, values: [server]}

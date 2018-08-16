@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: zookeeper-ce
+ labels:
+  app: zookeeper-ce
+spec:
+ replicas: 1
+ selector:
+  matchLabels:
+   app: zookeeper-ce
+  matchExpressions:
+   - {key: app,operator: In,values: [zookeeper-ce]}
+ template:
+  metadata:
+   labels:
+    app: zookeeper-ce
+  spec:
+   nodeSelector:
+    classtype: master
+   containers:
+   - name: zookeeper-ce
+     image: docker.io/zookeeper:3.4.11
+     imagePullPolicy: IfNotPresent
+     resources:
+      limits:
+       cpu: "0.5"
+       memory: "500Mi"
+      requests:
+       cpu: "0.3"
+       memory: "450Mi"
+     ports:
+     - name: zookeeper
+       containerPort: 2181
+     volumeMounts:
+     - mountPath: /data
+       name: mypd
+       mountPath: /datalog
+       name: mypd
+   volumes:
+   - name: mypd
+     persistentVolumeClaim:
+      claimName: mongoclaim
+

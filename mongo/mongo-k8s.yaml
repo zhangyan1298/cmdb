@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: mongo-ce
+ labels:
+  app: mongo-ce
+spec:
+ replicas: 1
+ selector:
+  matchLabels:
+   app: mongo-ce
+  matchExpressions:
+   - {key: app,operator: In,values: [mongo-ce]}
+ template:
+  metadata:
+   labels:
+    app: mongo-ce
+  spec:
+   nodeSelector:
+    classtype: master
+   containers:
+   - name: mongo-ce
+     image: docker.io/mongo:2.8.0
+     imagePullPolicy: IfNotPresent
+     resources:
+      limits:
+       cpu: "0.5"
+       memory: "500Mi"
+      requests:
+       cpu: "0.3"
+       memory: "450Mi"
+     ports:
+     - name: mongo
+       containerPort: 27017
+     env:
+      - name: MONGO_INITDB_ROOT_USERNAME
+        value: root
+        name: MONGO_INITDB_ROOT_PASSWORD
+        value: mongo_1234
+     volumeMounts:
+     - mountPath: /data/db
+       name: mypd
+   volumes:
+   - name: mypd
+     persistentVolumeClaim:
+      claimName: mongoclaim
+

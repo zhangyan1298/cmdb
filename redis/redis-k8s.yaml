@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: redis-ce
+ labels:
+  app: redis-ce
+spec:
+ replicas: 1
+ selector:
+  matchLabels:
+   app: redis-ce
+  matchExpressions:
+   - {key: app,operator: In,values: [redis-ce]}
+ template:
+  metadata:
+   labels:
+    app: redis-ce
+  spec:
+   nodeSelector:
+    classtype: master
+   containers:
+   - name: redis-ce
+     args:
+     - /usr/local/etc/redis/redis.conf
+     image: docker.io/redis:3.2.11
+     imagePullPolicy: IfNotPresent
+     resources:
+      limits:
+       cpu: "0.5"
+       memory: "1Gi"
+      requests:
+       cpu: "0.3"
+       memory: "500Mi"
+     ports:
+     - name: redis
+       containerPort: 6379
+     volumeMounts:
+     - mountPath: /data
+       name: mypd
+     - mountPath: /usr/local/etc/redis/
+       name: redisconfig
+   volumes:
+   - name: mypd
+     emptyDir: {}
+#     persistentVolumeClaim:
+#      claimName: myclaim
+   - name: redisconfig
+     configMap:
+      name: redisconfg
