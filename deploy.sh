@@ -47,6 +47,14 @@ make
 python init.py --discovery 10.1.128.167:2181 --database cmdb --redis_ip 10.1.95.144  --redis_port 6379 --redis_pass my_redis --mongo_ip 10.1.19.148  --mongo_port 27017 --mongo_user cc --mongo_pass cc --blueking_cmdb_url http://0.0.0.0:8083 --listen_port 8083
 #启动服务
 ./start.sh
+##bash ./init_db 初始化db失败
+#bash ./init_db.sh 
+#{"result":false,"bk_error_code":1105000,"bk_error_msg":"迁移数据失败","data":null
+#日志报错，实际是连接到了mongodb 创建这个文件失败了。
+E0816 12:58:40.191454    3477 migrate.go:39] db upgrade error: couldn't create file /data/db/cmdb.ns
+###mongo 日志
+#2018-08-16T04:58:42.868+0000 W STORAGE  [conn14] database /data/db cmdb could not be opened due to DBException 18825: couldn't create file /data/db/cmdb.ns
+
 
 
 
