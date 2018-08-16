@@ -54,6 +54,18 @@ python init.py --discovery 10.1.128.167:2181 --database cmdb --redis_ip 10.1.95.
 E0816 12:58:40.191454    3477 migrate.go:39] db upgrade error: couldn't create file /data/db/cmdb.ns
 ###mongo 日志
 #2018-08-16T04:58:42.868+0000 W STORAGE  [conn14] database /data/db cmdb could not be opened due to DBException 18825: couldn't create file /data/db/cmdb.ns
+##出错的原因是因为权限不够无法创建文件，解决方案是admin库创建一个管理员角色的用户，并登陆使用admin库。新建cmdb需要链接库的用户
+###
+#use admin
+
+#db.createUser(
+#{
+#user: "cc",
+#pwd: "cc",
+#roles: [
+#{ role: "readWrite", db: "cmdb" }
+#]
+#})
 
 
 
